@@ -26,7 +26,6 @@ public class Landlord {
             stmt.setString(1,this.getName());
             stmt.setString(2,this.getLast_name());
             stmt.setString(3,this.getDni());
-            stmt.setDate(4, new java.sql.Date(this.getBirth_date().getTime()));
             stmt.setInt(5,this.getId());
 
             stmt.executeUpdate();
@@ -54,7 +53,6 @@ public class Landlord {
             stmt.setString(1,this.getName());
             stmt.setString(2,this.getLast_name());
             stmt.setString(3,this.getDni());
-            stmt.setDate(4, new java.sql.Date(this.getBirth_date().getTime()));
             stmt.setInt(5,this.getId());
 
             stmt.executeUpdate();
