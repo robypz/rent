@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,11 +9,34 @@ public class Landlord {
     private String name;
     private String last_name;
     private String dni;
-    private Date birth_date;
+    private LocalDate birth_date;
 
-    //meotodos para operar tabla en db
     public static List<Landlord> index (){
         List<Landlord> landlords = new ArrayList<>();
+        String sql = "SELECT * FROM landlords";
+        try (
+                Connection conn = MariaDB.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
+        ) {
+
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Landlord landlord = new Landlord();
+                    landlord.setId(rs.getInt("id"));
+                    landlord.setName(rs.getString("name"));
+                    landlord.setLast_name(rs.getString("last_name"));
+                    landlord.setDni(rs.getString("dni"));
+                    landlord.setBirthDate(rs.getObject("birth_date",LocalDate.class));
+
+                    landlords.add(landlord);
+
+                }
+            }
+
+        } catch (SQLException e) {
+            IO.println(e.getMessage());
+        }
         return landlords;
     }
     public void store () throws SQLException {
@@ -26,16 +50,18 @@ public class Landlord {
             stmt.setString(1,this.getName());
             stmt.setString(2,this.getLast_name());
             stmt.setString(3,this.getDni());
-            stmt.setInt(5,this.getId());
+            stmt.setObject(4,this.getBirtDate());
+
 
             stmt.executeUpdate();
 
-            try (ResultSet keys = stmt.getGeneratedKeys()) {
-                if (keys.next()) {
-                    this.setName(keys.getString("name"));
-                    this.setLast_name(keys.getString("last_name"));
-                    this.setDni(keys.getString("dni"));
-                    this.setBirth_date(keys.getDate("birth_date"));
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    this.setId(rs.getInt("id"));
+                    this.setName(rs.getString("name"));
+                    this.setLast_name(rs.getString("last_name"));
+                    this.setDni(rs.getString("dni"));
+                    this.setBirthDate(rs.getObject("birth_date",LocalDate.class));
                 }
             }
 
@@ -57,12 +83,12 @@ public class Landlord {
 
             stmt.executeUpdate();
 
-            try (ResultSet keys = stmt.getGeneratedKeys()) {
-                if (keys.next()) {
-                    this.setName(keys.getString("name"));
-                    this.setLast_name(keys.getString("last_name"));
-                    this.setDni(keys.getString("dni"));
-                    this.setBirth_date(new Date(keys.getDate("birth_date").getTime()));
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    this.setName(rs.getString("name"));
+                    this.setLast_name(rs.getString("last_name"));
+                    this.setDni(rs.getString("dni"));
+                    this.setBirthDate(rs.getObject("birth_date",LocalDate.class));
                 }
             }
 
@@ -79,6 +105,17 @@ public class Landlord {
 
     public static void delete (Landlord landlord){
 
+    }
+
+    @Override
+    public String toString() {
+        return "Landlord{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", dni='" + dni + '\'' +
+                ", birth_date=" + birth_date +
+                '}';
     }
 
     public int getId() {
@@ -113,11 +150,11 @@ public class Landlord {
         this.last_name = last_name;
     }
 
-    public Date getBirth_date() {
+    public LocalDate getBirtDate() {
         return birth_date;
     }
 
-    public void setBirth_date(Date birth_date) {
+    public void setBirthDate(LocalDate birth_date) {
         this.birth_date = birth_date;
     }
 }
