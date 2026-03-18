@@ -1,5 +1,8 @@
 import java.sql.SQLException;
 
+// para crear una nueva rama en github: git checkout -b nombre_rama
+//para cambiar de rama: git checkout nombre_rama
+
 void main() throws SQLException {
     /*
     Landlord l = new Landlord();
