@@ -1,7 +1,7 @@
 import java.sql.SQLException;
 
 void main() throws SQLException {
-    Landlord landlord = new Landlord();
+    /*Landlord landlord = new Landlord();
     landlord.setDni("7777777");
     landlord.setName("Maria");
     landlord.setLast_name("Jimenez");
@@ -9,5 +9,6 @@ void main() throws SQLException {
     landlord.store();
     for (Landlord l : Landlord.index()){
         IO.println(l);
-    }
+    }*/
+    IO.println(Landlord.delete(2));
 }

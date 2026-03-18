@@ -74,7 +74,7 @@ public class Landlord {
         String sql = "UPDATE landlords SET name = ?, last_name = ?, dni = ?, birth_date = ? WHERE id = ?";
 
         try (Connection conn = MariaDB.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1,this.getName());
             stmt.setString(2,this.getLast_name());
@@ -100,11 +100,47 @@ public class Landlord {
 
     public static Landlord show (int id){
         Landlord landlord = new Landlord();
+        List<Landlord> landlords = new ArrayList<>();
+        String sql = "SELECT * FROM landlords WHERE id = ? LIMIT 1";
+        try (
+                Connection conn = MariaDB.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
+        ) {
+            stmt.setInt(1,id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    landlord.setId(rs.getInt("id"));
+                    landlord.setName(rs.getString("name"));
+                    landlord.setLast_name(rs.getString("last_name"));
+                    landlord.setDni(rs.getString("dni"));
+                    landlord.setBirthDate(rs.getObject("birth_date",LocalDate.class));
+
+                }
+            }
+
+        } catch (SQLException e) {
+            IO.println(e.getMessage());
+        }
         return landlord;
     }
 
-    public static void delete (Landlord landlord){
+    public static boolean delete (int id){
+        String sql = "DELETE FROM landlords WHERE id = ?";
 
+        try (Connection conn = MariaDB.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
+
+            stmt.setInt(1,id);
+
+            if (stmt.executeUpdate()>0){
+                return true;
+            }
+
+        } catch (SQLException e) {
+            IO.println(e.getMessage());
+        }
+        return false;
     }
 
     @Override
