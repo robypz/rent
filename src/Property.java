@@ -1,3 +1,10 @@
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Property {
     private int id;
     private String address;
@@ -10,6 +17,29 @@ public class Property {
         this.floors = floors;
         this.landlord_id = landlord_id;
     }
+
+    public static List<Property> index() {
+        List<Property> properties = new ArrayList<>();
+        String sql = "SELECT * FROM properties";
+        try (Connection conn = MariaDB.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                Property p = new Property(
+                        rs.getString("address"),
+                        rs.getDouble("price"),
+                        rs.getInt("floors"),
+                        rs.getInt("landlord_id")
+                );
+                p.setId(rs.getInt("id"));
+                properties.add(p);
+            }
+        } catch (SQLException e) {
+            IO.println(e.getMessage());
+        }
+        return properties;
+    }
+
 
     public int getId() {
         return id;
