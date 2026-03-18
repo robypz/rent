@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,7 +9,7 @@ public class Landlord {
     private String name;
     private String last_name;
     private String dni;
-    private Date birth_date;
+    private LocalDate birth_date;
 
     //meotodos para operar tabla en db
     public static List<Landlord> index() throws SQLException{
@@ -28,7 +29,7 @@ public class Landlord {
                     l.setDni(keys.getString("dni"));
                     l.setName(keys.getString("name"));
                     l.setLast_name(keys.getString("last_name"));
-                    l.setBirth_date(keys.getDate("birth_date"));
+                    l.setBirth_date(keys.getObject("birth_date",LocalDate.class));
                     landlords.add(l);
                 }
             }
@@ -49,7 +50,7 @@ public class Landlord {
             stmt.setString(1,this.getName());
             stmt.setString(2,this.getLast_name());
             stmt.setString(3,this.getDni());
-            stmt.setDate(4,new java.sql.Date(this.getBirth_date().getTime()));
+            stmt.setObject(4,this.getBirth_date());
 
             stmt.executeUpdate();
 
@@ -58,7 +59,7 @@ public class Landlord {
                     this.setName(keys.getString("name"));
                     this.setLast_name(keys.getString("last_name"));
                     this.setDni(keys.getString("dni"));
-                    this.setBirth_date(keys.getDate("birth_date"));
+                    this.setBirth_date(keys.getObject("birth_date",LocalDate.class));
                 }
             }
 
@@ -85,7 +86,7 @@ public class Landlord {
                     this.setName(keys.getString("name"));
                     this.setLast_name(keys.getString("last_name"));
                     this.setDni(keys.getString("dni"));
-                    this.setBirth_date(new Date(keys.getDate("birth_date").getTime()));
+                    this.setBirth_date(keys.getObject("birth_date",LocalDate.class));
                 }
             }
 
@@ -110,7 +111,7 @@ public class Landlord {
                     landlord.setDni(keys.getString("dni"));
                     landlord.setName(keys.getString("name"));
                     landlord.setLast_name(keys.getString("last_name"));
-                    landlord.setBirth_date(keys.getDate("birth_date"));
+                    landlord.setBirth_date(keys.getObject("birth_date",LocalDate.class));
                 }
             }
 
@@ -166,11 +167,11 @@ public class Landlord {
         this.last_name = last_name;
     }
 
-    public Date getBirth_date() {
+    public LocalDate getBirth_date() {
         return birth_date;
     }
 
-    public void setBirth_date(Date birth_date) {
+    public void setBirth_date(LocalDate birth_date) {
         this.birth_date = birth_date;
     }
 
