@@ -1,7 +1,10 @@
 import java.sql.SQLException;
 
 // para crear una nueva rama en github: git checkout -b nombre_rama
-//para cambiar de rama: git checkout nombre_rama
+// para cambiar de rama: git checkout nombre_rama
+// para ver en qué rama estás: git brach
+// para cargar la rama otra vez en caso de no ver los cambios: git pull
+// actualizar repositorio local con el remoto: git fetch
 
 void main() throws SQLException {
     /*
