@@ -5,7 +5,14 @@ import java.sql.SQLException;
 // para ver en qué rama estás: git brach
 // para cargar la rama otra vez en caso de no ver los cambios: git pull
 // actualizar repositorio local con el remoto: git fetch
+// para traer los cambios hechos en otra rama: git merge origin/nombre_rama Ej: origin/robypz
+// para guardar en vim comando: :w
+// para salir de vim comando: :q
+// para subir un repositorio a github: git add . && git commit -m "mensaje del commit" && git push
 
+
+// crear metodo que con un objetos tipo landlord nos devuelva una lista con las propiedades de ese propietario
+// buscar información sobre MVC y Patrón de diseño de software
 void main() throws SQLException {
     /*
     Landlord l = new Landlord();

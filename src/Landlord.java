@@ -35,7 +35,7 @@ public class Landlord {
             }
 
         } catch (SQLException e) {
-            IO.println(e.getMessage());
+            IO.println("Error en index de landlord " + e.getMessage());
         }
         return landlords;
     }
@@ -64,7 +64,7 @@ public class Landlord {
             }
 
         } catch (SQLException e) {
-            IO.println(e.getMessage());
+            IO.println("Error en store de landlord " + e.getMessage());
         }
     }
 
@@ -91,7 +91,7 @@ public class Landlord {
             }
 
         } catch (SQLException e) {
-            IO.println(e.getMessage());
+            IO.println("Error en update de landlord " + e.getMessage());
         }
 
     }
@@ -116,7 +116,7 @@ public class Landlord {
             }
 
         } catch (SQLException e) {
-            IO.println(e.getMessage());
+            IO.println("Error en show de landlord " + e.getMessage());
         }
         return landlord;
     }
@@ -128,7 +128,7 @@ public class Landlord {
             stmt.setInt(1, landlord.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            IO.println(e.getMessage());
+            IO.println("Error en destroy de landlord " + e.getMessage());
         }
     }
 
@@ -159,9 +159,6 @@ public class Landlord {
     public String getLast_name() {
         return last_name;
     }
-
-
-
 
     public void setLast_name(String last_name) {
         this.last_name = last_name;

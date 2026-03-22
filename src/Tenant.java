@@ -23,7 +23,7 @@ public class Tenant {
         try(Connection conn = MariaDB.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = stmt.executeQuery()){
-            if(rs.next()){
+            while(rs.next()){
                 Tenant t = new Tenant(rs.getString("dni"),
 
                         rs.getDate("birth_date"),
@@ -33,7 +33,7 @@ public class Tenant {
                 t.setId(rs.getInt("id"));
             }
         } catch (SQLException e) {
-            IO.println("SQLException: " + e.getMessage());
+            IO.println("Error en index de tentant " + e.getMessage());
         }
         return tenants;
     }
@@ -53,7 +53,7 @@ public class Tenant {
                 }
             }
         } catch (SQLException e) {
-            IO.println(e.getMessage());
+            IO.println("Error en store de tenant " + e.getMessage());
         }
     }
 
@@ -68,7 +68,7 @@ public class Tenant {
             stmt.setInt(5, this.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            IO.println(e.getMessage());
+            IO.println("Error en update de tenant " + e.getMessage());
         }
     }
 
@@ -90,7 +90,7 @@ public class Tenant {
                 }
             }
         } catch (SQLException e) {
-            IO.println(e.getMessage());
+            IO.println("Error en show de tenant " + e.getMessage());
         }
         return tenant;
     }
@@ -102,7 +102,7 @@ public class Tenant {
             stmt.setInt(1, tenant.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            IO.println(e.getMessage());
+            IO.println("Error en destroy de landlord " + e.getMessage());
         }
     }
 
