@@ -1,3 +1,5 @@
+import models.Property;
+import views.LandlordView;
 import java.sql.SQLException;
 
 // para crear una nueva rama en github: git checkout -b nombre_rama
@@ -15,7 +17,7 @@ import java.sql.SQLException;
 // buscar información sobre MVC y Patrón de diseño de software
 void main() throws SQLException {
     /*
-    Landlord l = new Landlord();
+    models.Landlord l = new models.Landlord();
     l.setDni("1111");
     l.setName("Alvaro");
     l.setLast_name("Alvarez");
@@ -24,12 +26,12 @@ void main() throws SQLException {
     IO.println(l.toString());
     l.store();
 
-    for(Landlord lt: Landlord.index()) {
+    for(models.Landlord lt: models.Landlord.index()) {
         IO.println(lt);
     }
-    */
+
     Property p = new Property("calle", 20000.0, 6, 1);
     p.store();
-    //Tenant t = new Tenant("123456789", LocalDate.of("1995-02-02"), "hola", "adios");
-    //Rental r = new Rental(1,LocalDate.of("1995-02-02"),LocalDate.of("1995-02-02"), 1);
+    */
+    LandlordView.create();
 }

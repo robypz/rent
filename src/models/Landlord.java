@@ -1,7 +1,8 @@
+package models;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Landlord {
@@ -123,8 +124,8 @@ public class Landlord {
 
     public static void destroy (Landlord landlord){
         String sql = "DELETE FROM landlords WHERE id = ?";
-        try( Connection conn = MariaDB.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
+        try(Connection conn = MariaDB.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
             stmt.setInt(1, landlord.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -174,7 +175,7 @@ public class Landlord {
 
     @Override
     public String toString() {
-        return "Landlord{" +
+        return "models.Landlord{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", last_name='" + last_name + '\'' +
