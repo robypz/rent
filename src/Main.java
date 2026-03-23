@@ -29,7 +29,7 @@ void main() throws SQLException {
     }
     */
     Property p = new Property("calle", 20000.0, 6, 1);
-    Tenant t = new Tenant("123456789", LocalDate.of("1995-02-02"), "hola", "adios");
-    Rental r = new Rental(1,LocalDate.of("1995-02-02"),LocalDate.of("1995-02-02"), 1);
-    IO.println(Landlord.show(3));
+    p.store();
+    //Tenant t = new Tenant("123456789", LocalDate.of("1995-02-02"), "hola", "adios");
+    //Rental r = new Rental(1,LocalDate.of("1995-02-02"),LocalDate.of("1995-02-02"), 1);
 }

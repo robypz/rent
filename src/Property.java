@@ -71,27 +71,27 @@ public class Property {
         }
     }
 
-    public static Tenant show(int id) {
-        Tenant tenant = null;
+    public static Property show(int id) {
+       Property property = null;
         String sql = "SELECT * FROM properties WHERE id = ?";
         try (Connection conn = MariaDB.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    tenant = new Tenant(
+                    property = new Property(
                             rs.getString("address"),
-                            rs.getDate("price"),
-                            rs.getString("floors"),
-                            rs.getString("landlord_id")
+                            rs.getDouble("price"),
+                            rs.getInt("floors"),
+                            rs.getInt("landlord_id")
                     );
-                    tenant.setId(rs.getInt("id"));
+                    property.setId(rs.getInt("id"));
                 }
             }
         } catch (SQLException e) {
             IO.println("Error en show de propoerty " + e.getMessage());
         }
-        return tenant;
+        return property;
     }
 
     public static void destroy(Property property) {
