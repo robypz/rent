@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -6,11 +7,11 @@ import java.util.List;
 public class Rental {
     private int id;
     private int tenant_id;
-    private Date start_date;
-    private Date end_date;
+    private LocalDate start_date;
+    private LocalDate end_date;
     private int property_id;
 
-    public Rental(int tenant_id, Date start_date, Date end_date, int property_id) {
+    public Rental(int tenant_id, LocalDate start_date, LocalDate end_date, int property_id) {
         this.tenant_id = tenant_id;
         this.start_date = start_date;
         this.end_date = end_date;
@@ -26,8 +27,8 @@ public class Rental {
             while (rs.next()){
                 Rental r = new Rental(
                         rs.getInt("tenant_id"),
-                        rs.getDate("start_date"),
-                        rs.getDate("end_date"),
+                        rs.getObject("start_date",LocalDate.class),
+                        rs.getObject("end_date",LocalDate.class),
                         rs.getInt("property_id")
                 );
                 r.setId(rs.getInt("id"));
@@ -83,8 +84,8 @@ public class Rental {
                 if(rs.next()){
                     rental = new Rental(
                             rs.getInt("tenant_id"),
-                            rs.getDate("start_date"),
-                            rs.getDate("end_date"),
+                            rs.getObject("start_date",LocalDate.class),
+                            rs.getObject("end_date",LocalDate.class),
                             rs.getInt("property_id")
                     );
                     rental.setId(rs.getInt("id"));
@@ -112,10 +113,10 @@ public class Rental {
     public void setId(int id) { this.id = id; }
     public int getTenant_id() { return this.tenant_id; }
     public void setTenant_id(int tenant_id) { this.tenant_id = tenant_id; }
-    public Date getStart_date() { return this.start_date; }
-    public void setStart_date(Date start_date) { this.start_date = start_date; }
-    public Date getEnd_date() { return this.end_date; }
-    public void setEnd_date(Date end_date) { this.end_date = end_date; }
+    public LocalDate getStart_date() { return this.start_date; }
+    public void setStart_date(LocalDate start_date) { this.start_date = start_date; }
+    public LocalDate getEnd_date() { return this.end_date; }
+    public void setEnd_date(LocalDate end_date) { this.end_date = end_date; }
     public int getProperty_id() { return this.property_id; }
     public void setProperty_id(int property_id) { this.property_id = property_id; }
 

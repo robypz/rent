@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -6,11 +7,11 @@ import java.util.List;
 public class Tenant {
     private int id;
     private String dni;
-    private Date birth_date;
+    private LocalDate birth_date;
     private String name;
     private String last_name;
 
-    public Tenant(String dni, Date birth_date, String name, String last_name) {
+    public Tenant(String dni, LocalDate birth_date, String name, String last_name) {
         this.dni = dni;
         this.birth_date = birth_date;
         this.name = name;
@@ -24,9 +25,9 @@ public class Tenant {
             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = stmt.executeQuery()){
             while(rs.next()){
-                Tenant t = new Tenant(rs.getString("dni"),
-
-                        rs.getDate("birth_date"),
+                Tenant t = new Tenant(
+                        rs.getString("dni"),
+                        rs.getObject("birth_date",LocalDate.class),
                         rs.getString("name"),
                         rs.getString("last_name")
                 );
@@ -43,7 +44,7 @@ public class Tenant {
         try (Connection conn = MariaDB.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, this.getDni());
-            stmt.setDate(2, new java.sql.Date(this.getBirth_date().getTime()));
+            stmt.setObject(2, this.getBirth_date());
             stmt.setString(3, this.getName());
             stmt.setString(4, this.getLast_name());
             stmt.executeUpdate();
@@ -62,7 +63,7 @@ public class Tenant {
         try (Connection conn = MariaDB.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, this.getDni());
-            stmt.setDate(2, new java.sql.Date(this.getBirth_date().getTime()));
+            stmt.setObject(2, this.getBirth_date());
             stmt.setString(3, this.getName());
             stmt.setString(4, this.getLast_name());
             stmt.setInt(5, this.getId());
@@ -82,7 +83,7 @@ public class Tenant {
                 if (rs.next()) {
                     tenant = new Tenant(
                             rs.getString("dni"),
-                            rs.getDate("birth_date"),
+                            rs.getObject("birth_date",LocalDate.class),
                             rs.getString("name"),
                             rs.getString("last_name")
                     );
@@ -122,11 +123,11 @@ public class Tenant {
         this.id = id;
     }
 
-    public Date getBirth_date() {
+    public LocalDate getBirth_date() {
         return birth_date;
     }
 
-    public void setBirth_date(Date birth_date) {
+    public void setBirth_date(LocalDate birth_date) {
         this.birth_date = birth_date;
     }
 
