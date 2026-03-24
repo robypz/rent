@@ -1,5 +1,9 @@
 import models.Property;
 import views.LandlordView;
+import views.PropertyView;
+import views.RentalView;
+import views.TenantView;
+
 import java.sql.SQLException;
 
 // para crear una nueva rama en github: git checkout -b nombre_rama
@@ -32,6 +36,11 @@ void main() throws SQLException {
 
     Property p = new Property("calle", 20000.0, 6, 1);
     p.store();
+
     */
-    LandlordView.create();
+
+    //LandlordView.createLandlord();
+    //PropertyView.createProperty();
+    //RentalView.createRental();
+    TenantView.createTenant();
 }

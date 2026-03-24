@@ -6,26 +6,12 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.Scanner;
 
-public class LandlordView {
-    //crear las clases vista para todas las clases existentes, landlord, property, rental y tenant
-    public static void createLandlord() {
+public class TenantView {
+    public static void createTenant(){
         Scanner sc = new Scanner(System.in);
-        IO.println("CREAR NUEVO PROPIETARIO");
+        IO.println("CREAR NUEVO INQUILINO");
 
-        String name;
-        do{
-            IO.print("Nombre: ");
-            name = sc.nextLine();
-        } while(name.isEmpty() || name.length()>10);
-
-
-        String last_name;
-        do{
-            IO.print("Apellido: ");
-            last_name = sc.nextLine();
-        } while(last_name.isEmpty() || last_name.length()>10);
-
-        String dni;
+        String dni = null;
         do{
             IO.print("Dni: ");
             dni = sc.nextLine();
@@ -48,5 +34,17 @@ public class LandlordView {
             }
         } while (birthDate == null);
 
+        String name = null;
+        do{
+            IO.print("Nombre: ");
+            name = sc.nextLine();
+        } while(name.isEmpty() || name.length()>10);
+
+
+        String last_name = null;
+        do{
+            IO.print("Apellido: ");
+            last_name = sc.nextLine();
+        } while(last_name.isEmpty() || last_name.length()>10);
     }
 }
