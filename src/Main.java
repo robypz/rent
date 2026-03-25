@@ -1,3 +1,4 @@
+import controllers.LandlordController;
 import models.Property;
 import views.LandlordView;
 import views.PropertyView;
@@ -19,28 +20,11 @@ import java.sql.SQLException;
 
 // crear metodo que con un objetos tipo landlord nos devuelva una lista con las propiedades de ese propietario
 // buscar información sobre MVC y Patrón de diseño de software
+
+// para que vuelva a funcionar MariaBD hacer win + R, y poner services.msc. Luego buscar MariaBD.exe y darle a iniciar
+// (lo mismo de arriba pero para MySQL si no funciona)
+
 void main() throws SQLException {
-    /*
-    models.Landlord l = new models.Landlord();
-    l.setDni("1111");
-    l.setName("Alvaro");
-    l.setLast_name("Alvarez");
-    l.setBirth_date(new Date(1999,5,11));
-    //System.out.println(l.toString());
-    IO.println(l.toString());
-    l.store();
-
-    for(models.Landlord lt: models.Landlord.index()) {
-        IO.println(lt);
-    }
-
-    Property p = new Property("calle", 20000.0, 6, 1);
-    p.store();
-
-    */
-
-    //LandlordView.createLandlord();
-    //PropertyView.createProperty();
-    //RentalView.createRental();
-    TenantView.createTenant();
+    LandlordController landlordcontroller = new LandlordController();
+    landlordcontroller.searchByDni();
 }

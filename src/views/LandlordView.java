@@ -1,5 +1,7 @@
 package views;
 
+import models.Landlord;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -8,8 +10,9 @@ import java.util.Scanner;
 
 public class LandlordView {
     //crear las clases vista para todas las clases existentes, landlord, property, rental y tenant
-    public static void createLandlord() {
-        Scanner sc = new Scanner(System.in);
+    private Scanner sc = new Scanner(System.in);
+    public Landlord createLandlord() {
+
         IO.println("CREAR NUEVO PROPIETARIO");
 
         String name;
@@ -48,5 +51,32 @@ public class LandlordView {
             }
         } while (birthDate == null);
 
+        Landlord landlord = new Landlord();
+        landlord.setName(name);
+        landlord.setLast_name(last_name);
+        landlord.setDni(dni);
+        landlord.setBirth_date(birthDate);
+        return landlord;
     }
+
+    public static void details(Landlord landlord) {
+        IO.println(
+                "ID: " + landlord.getId() +
+                "\nNombre: " + landlord.getName() +
+                "\nApellido: " + landlord.getLast_name() +
+                "\nDni: " + landlord.getDni() +
+                "\nFecha nacimiento: " + landlord.getBirth_date()
+        );
+    }
+
+    public String findbyDni(){
+        String dni;
+        do{
+            IO.print("Búsqueda por dni: ");
+            dni = sc.nextLine();
+
+        } while(!dni.matches("^[0-9]{8}[A-Z]$"));
+        return dni;
+    }
+
 }

@@ -1,0 +1,58 @@
+package controllers;
+
+import models.Landlord;
+import models.MariaDB;
+import views.LandlordView;
+
+import java.sql.*;
+import java.time.LocalDate;
+
+public class LandlordController {
+    private LandlordView landlordview = new LandlordView();
+    public void store() {
+        Landlord landlord = landlordview.createLandlord();
+
+        //comprobamos que el dni no existe en la base de datos
+        if(Landlord.dniExist(landlord.getDni())){
+            IO.println("Este DNI ya está registrado");
+        } else{
+            try{
+                landlord.store();
+                LandlordView.details(landlord);
+            } catch (SQLException e){
+                IO.println(e.getMessage());
+            }
+        }
+    }
+
+    public static Landlord findByDni(String dni){
+        Landlord landlord = new Landlord();
+        String sql = "SELECT * FROM landlords WHERE dni = ? LIMIT 1";
+        try (
+                Connection conn = MariaDB.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
+        ) {
+            stmt.setString(1,dni);
+
+            try (ResultSet keys = stmt.executeQuery()) {
+                if(keys.next()) {
+                    landlord.setId(keys.getInt("id"));
+                    landlord.setDni(keys.getString("dni"));
+                    landlord.setName(keys.getString("name"));
+                    landlord.setLast_name(keys.getString("last_name"));
+                    landlord.setBirth_date(keys.getObject("birth_date", LocalDate.class));
+                }
+            }
+
+        } catch (SQLException e) {
+            IO.println("Error en show de landlord " + e.getMessage());
+        }
+        return landlord;
+    }
+
+    public void searchByDni(){
+        String dni = landlordview.findbyDni();
+        Landlord landlord = Landlord.findByDni(dni);
+        landlordview.details(landlord);
+    }
+}
