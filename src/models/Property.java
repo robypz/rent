@@ -131,6 +131,46 @@ public class Property {
         return properties;
     }
 
+    public static boolean exists(int id) {
+        String sql = "SELECT COUNT(*) FROM properties WHERE id = ?";
+        try (Connection conn = MariaDB.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            IO.println("Error al verificar existencia: " + e.getMessage());
+        }
+        return false;
+    }
+
+    public Property() {}
+
+    public static Property findById(int id) {
+        Property property = new Property();
+        String sql = "SELECT * FROM properties WHERE id = ? LIMIT 1";
+        try (Connection conn = MariaDB.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    property.setId(rs.getInt("id"));
+                    property.setAddress(rs.getString("address"));
+                    property.setPrice(rs.getDouble("price"));
+                    property.setFloors(rs.getInt("floors"));
+                    property.setLandlord_id(rs.getInt("landlord_id"));
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error en findById: " + e.getMessage());
+        }
+        return property;
+    }
+
     public int getId() {
         return id;
     }
