@@ -1,11 +1,6 @@
-import controllers.LandlordController;
-import controllers.PropertyController;
-import controllers.RentalController;
+import controllers.*;
 import models.Property;
-import views.LandlordView;
-import views.PropertyView;
-import views.RentalView;
-import views.TenantView;
+import views.*;
 
 import java.sql.SQLException;
 
@@ -27,10 +22,5 @@ import java.sql.SQLException;
 // (lo mismo de arriba pero para MySQL si no funciona)
 
 void main() throws SQLException {
-    /*LandlordController landlordcontroller = new LandlordController();
-    landlordcontroller.searchByDni();
-    PropertyController propertyController = new PropertyController();
-    propertyController.searchById(); */
-    RentalController rentalController = new RentalController();
-    rentalController.store();
+    HomeController homeController = new HomeController();
 }
