@@ -9,12 +9,12 @@ public class PropertyView {
         Scanner sc = new Scanner(System.in);
         IO.println("CREAR NUEVA PROPIEDAD");
 
-        int id = 0;
-        while(id<=0){
+        int landlord_id = 0;
+        while(landlord_id<=0){
             try{
                 IO.print("Identificador: ");
-                id = Integer.parseInt(sc.nextLine());
-                if(id<=0){
+                landlord_id = Integer.parseInt(sc.nextLine());
+                if(landlord_id<=0){
                     IO.println("Error, id negativo o nulo");
                 }
             } catch(NumberFormatException e){
@@ -54,7 +54,7 @@ public class PropertyView {
                 IO.println("Error, introduzca número entero válido");
             }
         }
-        return new Property(address, price, floors, id);
+        return new Property(address, price, floors, landlord_id);
     }
 
     public int findbyId() {

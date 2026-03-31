@@ -1,9 +1,10 @@
 import controllers.LandlordController;
+import controllers.PropertyController;
 
 import java.sql.SQLException;
 
 
 void main() throws SQLException {
-    LandlordController landlordController = new LandlordController();
-    landlordController.searchByDni();
+    PropertyController propertyController = new  PropertyController();
+    propertyController.store();
 }

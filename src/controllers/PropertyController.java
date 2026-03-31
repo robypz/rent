@@ -13,7 +13,6 @@ public class PropertyController {
             IO.println("Propiedad guardada con ID: " + property.getId());
         }
 
-
     }
 
     public void searchById() {
