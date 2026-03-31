@@ -131,6 +131,9 @@ public class Property {
         return properties;
     }
 
+
+
+
     public static boolean exists(int id) {
         String sql = "SELECT COUNT(*) FROM properties WHERE id = ?";
         try (Connection conn = MariaDB.getConnection();
