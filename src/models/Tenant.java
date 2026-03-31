@@ -108,6 +108,40 @@ public class Tenant {
         }
     }
 
+    public Tenant(){}
+
+    public static boolean dniExist(String dni) {
+        String sql = "SELECT COUNT(*) FROM tenants WHERE dni = ?";
+        try (Connection conn = MariaDB.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, dni);
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next() && rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) { return false; }
+    }
+
+    public static Tenant findByDni(String dni) {
+        Tenant tenant = new Tenant();
+        String sql = "SELECT * FROM tenants WHERE dni = ? LIMIT 1";
+        try (Connection conn = MariaDB.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, dni);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    tenant.setId(rs.getInt("id"));
+                    tenant.setDni(rs.getString("dni"));
+                    tenant.setName(rs.getString("name"));
+                    tenant.setLast_name(rs.getString("last_name"));
+                    tenant.setBirth_date(rs.getObject("birth_date", LocalDate.class));
+                }
+            }
+        } catch (SQLException e) {
+            IO.println("Error: " + e.getMessage());
+        }
+        return tenant;
+    }
+
     public String getDni() {
         return dni;
     }

@@ -9,10 +9,10 @@ import java.time.format.ResolverStyle;
 import java.util.Scanner;
 
 public class LandlordView {
-    private Scanner sc = new Scanner(System.in);
     //crear las clases vista para todas las clases existentes, landlord, property, rental y tenant
+    private Scanner sc = new Scanner(System.in);
     public Landlord createLandlord() {
-        Scanner sc = new Scanner(System.in);
+
         IO.println("CREAR NUEVO PROPIETARIO");
 
         String name;
@@ -53,27 +53,28 @@ public class LandlordView {
 
         Landlord landlord = new Landlord();
         landlord.setName(name);
-        landlord.setBirth_date(birthDate);
-        landlord.setDni(dni);
         landlord.setLast_name(last_name);
+        landlord.setDni(dni);
+        landlord.setBirth_date(birthDate);
         return landlord;
     }
 
-    public void details(Landlord landlord){
+    public static void details(Landlord landlord) {
         IO.println(
-                "\nID: " + landlord.getId() +
+                "ID: " + landlord.getId() +
                 "\nNombre: " + landlord.getName() +
-                 "\nApellido: " + landlord.getLast_name() +
-                 "\nDNI: " + landlord.getDni()+
-                 "\nFecha de nacimiento: " + landlord.getBirth_date()
+                "\nApellido: " + landlord.getLast_name() +
+                "\nDni: " + landlord.getDni() +
+                "\nFecha nacimiento: " + landlord.getBirth_date()
         );
     }
 
-    public String findByDni(){
+    public String findbyDni(){
         String dni;
         do{
-            IO.print("Busqueda por dni: ");
+            IO.print("Búsqueda por dni: ");
             dni = sc.nextLine();
+
         } while(!dni.matches("^[0-9]{8}[A-Z]$"));
         return dni;
     }

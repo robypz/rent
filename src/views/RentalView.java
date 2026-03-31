@@ -1,5 +1,7 @@
 package views;
 
+import models.Rental;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -7,7 +9,7 @@ import java.time.format.ResolverStyle;
 import java.util.Scanner;
 
 public class RentalView {
-    public static void createRental(){
+    public Rental createRental(){
         Scanner sc = new Scanner(System.in);
         IO.println("CREAR NUEVO ALQUILER");
 
@@ -72,6 +74,30 @@ public class RentalView {
                 IO.println("Error, introduzca número entero válido");
             }
         }
+        return new Rental(tenant_id, start_date, end_date,  property_id);
+    }
 
+    public int requestId() {
+        Scanner sc = new Scanner(System.in);
+        int id = -1;
+        while (id <= 0) {
+            try {
+                IO.print("Introduce el ID del alquiler: ");
+                id = Integer.parseInt(sc.nextLine());
+                if (id <= 0) IO.println("Error, el ID debe ser mayor a 0");
+            } catch (NumberFormatException e) {
+                IO.println("Error, introduce un número entero válido.");
+            }
+        }
+        return id;
+    }
+
+    public static void details(Rental r) {
+        IO.println("\n--- DETALLES DEL ALQUILER ---");
+        IO.println("ID Alquiler: " + r.getId());
+        IO.println("ID Inquilino: " + r.getTenant_id());
+        IO.println("Fecha Inicio: " + r.getStart_date());
+        IO.println("Fecha Fin: " + r.getEnd_date());
+        IO.println("ID Propiedad: " + r.getProperty_id());
     }
 }

@@ -47,7 +47,6 @@ public class Landlord {
                 Connection conn = MariaDB.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
         ) {
-
             stmt.setString(1,this.getName());
             stmt.setString(2,this.getLast_name());
             stmt.setString(3,this.getDni());
@@ -123,6 +122,33 @@ public class Landlord {
         return landlord;
     }
 
+    public static void destroy (Landlord landlord){
+        String sql = "DELETE FROM landlords WHERE id = ?";
+        try(Connection conn = MariaDB.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
+            stmt.setInt(1, landlord.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            IO.println("Error en destroy de landlord " + e.getMessage());
+        }
+    }
+
+    public static boolean dniExist(String dni){
+        String sql = "SELECT * FROM landlords WHERE dni = ? LIMIT 1";
+        try (Connection conn = MariaDB.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setString(1,dni);
+            try (ResultSet keys = stmt.executeQuery()) {
+                if(keys.next()){
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            IO.println("Error en dniExist de landlord " + e.getMessage());
+        }
+        return false;
+    }
+
     public static Landlord findByDni (String dni){
         Landlord landlord = new Landlord();
         String sql = "SELECT * FROM landlords WHERE dni = ? LIMIT 1";
@@ -146,37 +172,6 @@ public class Landlord {
             IO.println("Error en show de landlord " + e.getMessage());
         }
         return landlord;
-    }
-
-    public static void destroy (Landlord landlord){
-        String sql = "DELETE FROM landlords WHERE id = ?";
-        try(Connection conn = MariaDB.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
-            stmt.setInt(1, landlord.getId());
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            IO.println("Error en destroy de landlord " + e.getMessage());
-        }
-    }
-
-    public static boolean dniExist(String dni){
-        String sql = "SELECT * FROM landlords WHERE dni = ? LIMIT 1";
-        try (
-                Connection conn = MariaDB.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
-        ) {
-            stmt.setString(1,dni);
-
-            try (ResultSet keys = stmt.executeQuery()) {
-                if (keys.next()) {
-                    return true;
-                }
-            }
-
-        } catch (SQLException e) {
-            IO.println("Error en show de landlord " + e.getMessage());
-        }
-        return false;
     }
 
     public int getId() {

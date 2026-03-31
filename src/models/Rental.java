@@ -109,6 +109,28 @@ public class Rental {
         }
     }
 
+    public Rental(){}
+
+    public static Rental findById(int id) {
+        Rental r = new Rental();
+        String sql = "SELECT * FROM rentals WHERE id = ? LIMIT 1";
+        try (Connection con = MariaDB.getConnection();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                r.setId(rs.getInt("id"));
+                r.setTenant_id(rs.getInt("tenant_id"));
+                r.setStart_date(rs.getObject("start_date", LocalDate.class));
+                r.setEnd_date(rs.getObject("end_date", LocalDate.class));
+                r.setProperty_id(rs.getInt("property_id"));
+            }
+        } catch (SQLException e) {
+            IO.println("Error: " + e.getMessage());
+        }
+        return r;
+    }
+
 
     public int getId() { return this.id; }
     public void setId(int id) { this.id = id; }

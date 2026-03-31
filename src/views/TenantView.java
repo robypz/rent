@@ -1,5 +1,7 @@
 package views;
 
+import models.Tenant;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -7,7 +9,7 @@ import java.time.format.ResolverStyle;
 import java.util.Scanner;
 
 public class TenantView {
-    public static void createTenant(){
+    public Tenant createTenant(){
         Scanner sc = new Scanner(System.in);
         IO.println("CREAR NUEVO INQUILINO");
 
@@ -46,5 +48,26 @@ public class TenantView {
             IO.print("Apellido: ");
             last_name = sc.nextLine();
         } while(last_name.isEmpty() || last_name.length()>10);
+
+        return new Tenant(dni, birthDate, name, last_name);
+    }
+
+    public static void details(Tenant t) {
+        IO.println("\n--- DATOS DEL INQUILINO ---");
+        if (t != null && t.getDni() != null) {
+            IO.println("ID: " + t.getId());
+            IO.println("DNI: " + t.getDni());
+            IO.println("Nombre: " + t.getName());
+            IO.println("Apellido: " + t.getLast_name());
+            IO.println("Fecha Nacimiento: " + t.getBirth_date());
+        } else {
+            IO.println("Inquilino no encontrado o datos vacíos.");
+        }
+    }
+
+    public String requestDni() {
+        Scanner sc = new Scanner(System.in);
+        IO.print("Introduce el DNI del inquilino: ");
+        return sc.nextLine().trim();
     }
 }
