@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Landlord;
+import models.Tenant;
 import views.HomeView;
 import views.LandlordView;
 
@@ -17,10 +18,16 @@ public class HomeController {
                 landlordController.menu();
                 break;
             case 2:
+                PropertyController propertyController = new PropertyController();
+                propertyController.menu();
                 break;
             case 3:
+                TenantController tenantController = new TenantController();
+                tenantController.menu();
                 break;
             case 4:
+                RentalController rentalController = new RentalController();
+                rentalController.menu();
                 break;
             default:
                 IO.println("Opción inválida");

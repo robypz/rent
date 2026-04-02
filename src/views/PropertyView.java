@@ -1,10 +1,14 @@
 package views;
 
+import models.Landlord;
 import models.Property;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class PropertyView {
+    private Scanner sc = new Scanner(System.in);
+
     public Property createProperty() {
         Scanner sc = new Scanner(System.in);
         IO.println("CREAR NUEVA PROPIEDAD");
@@ -78,5 +82,16 @@ public class PropertyView {
         IO.println("Precio: " + p.getPrice() + " €");
         IO.println("Pisos: " + p.getFloors());
         IO.println("ID Arrendador: " + p.getLandlord_id());
+    }
+
+    public void index(List<Property> properties){
+        for(Property p: properties){
+            IO.println(p);
+        }
+    }
+
+    public int menu(){
+        IO.println("1) Ver listado \n2) Crear propiedad \n3) Buscar propidad");
+        return sc.nextInt();
     }
 }

@@ -181,4 +181,14 @@ public class Tenant {
     public void setLast_name(String last_name) {
         this.last_name = last_name;
     }
+
+    public String toString() {
+        return "models.Tenant{" +
+                "id=" + id +
+                ", dni='" + dni + '\'' +
+                ", birth_date'" + birth_date + '\'' +
+                ", name='" + name + '\'' +
+                ", last_name=" + last_name +
+                '}';
+    }
 }

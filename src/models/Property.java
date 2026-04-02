@@ -216,5 +216,14 @@ public class Property {
 
     private int landlord_id;
 
+    public String toString() {
+        return "models.Property{" +
+                "id=" + id +
+                ", address='" + address + '\'' +
+                ", price='" + price + '\'' +
+                ", floors='" + floors +
+                '}';
+    }
+
 }
 

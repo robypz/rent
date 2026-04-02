@@ -1,14 +1,18 @@
 package views;
 
+import models.Landlord;
 import models.Tenant;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
+import java.util.List;
 import java.util.Scanner;
 
 public class TenantView {
+    private Scanner sc = new Scanner(System.in);
+
     public Tenant createTenant(){
         Scanner sc = new Scanner(System.in);
         IO.println("CREAR NUEVO INQUILINO");
@@ -65,9 +69,22 @@ public class TenantView {
         }
     }
 
-    public String requestDni() {
+    public String findbyDni() {
         Scanner sc = new Scanner(System.in);
         IO.print("Introduce el DNI del inquilino: ");
         return sc.nextLine().trim();
     }
+
+    public void index(List<Tenant> tenants){
+        for(Tenant t : tenants){
+            IO.println(t);
+        }
+    }
+
+    public int menu(){
+        IO.println("1) Ver listado \n2) Crear inquilino \n3) Buscar inquilino");
+        return sc.nextInt();
+    }
+
+
 }

@@ -1,14 +1,17 @@
 package views;
 
+import models.Landlord;
 import models.Rental;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
+import java.util.List;
 import java.util.Scanner;
 
 public class RentalView {
+    private Scanner sc = new Scanner(System.in);
     public Rental createRental(){
         Scanner sc = new Scanner(System.in);
         IO.println("CREAR NUEVO ALQUILER");
@@ -77,7 +80,7 @@ public class RentalView {
         return new Rental(tenant_id, start_date, end_date,  property_id);
     }
 
-    public int requestId() {
+    public int searchById() {
         Scanner sc = new Scanner(System.in);
         int id = -1;
         while (id <= 0) {
@@ -99,5 +102,16 @@ public class RentalView {
         IO.println("Fecha Inicio: " + r.getStart_date());
         IO.println("Fecha Fin: " + r.getEnd_date());
         IO.println("ID Propiedad: " + r.getProperty_id());
+    }
+
+    public int menu(){
+        IO.println("1) Ver listado \n2) Crear contrato \n3) Buscar contrato");
+        return sc.nextInt();
+    }
+
+    public void index(List<Rental> rentals){
+        for(Rental r: rentals){
+            IO.println(r);
+        }
     }
 }

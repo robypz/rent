@@ -143,4 +143,14 @@ public class Rental {
     public int getProperty_id() { return this.property_id; }
     public void setProperty_id(int property_id) { this.property_id = property_id; }
 
+    public String toString() {
+        return "models.Rental{" +
+                "id=" + id +
+                ", tenant_id='" + tenant_id + '\'' +
+                ", start_date='" + start_date + '\'' +
+                ", end_date='" + end_date + '\'' +
+                ", property_id=" + property_id +
+                '}';
+    }
+
 }
