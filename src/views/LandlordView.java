@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
+import java.util.List;
 import java.util.Scanner;
 
 public class LandlordView {
@@ -77,6 +78,17 @@ public class LandlordView {
 
         } while(!dni.matches("^[0-9]{8}[A-Z]$"));
         return dni;
+    }
+
+    public int menu(){
+        IO.println("1) Ver listado\n2) Crear propietario\n3) Buscar propietario");
+        return sc.nextInt();
+    }
+
+    public void index (List<Landlord> landlords){
+        for (Landlord l : landlords){
+            IO.println(l);
+        }
     }
 
 }

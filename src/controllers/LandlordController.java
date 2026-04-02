@@ -6,9 +6,11 @@ import views.LandlordView;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.List;
 
 public class LandlordController {
     private LandlordView landlordview = new LandlordView();
+    private Landlord landlordModel = new Landlord();
     public void store() {
         Landlord landlord = landlordview.createLandlord();
 
@@ -50,9 +52,30 @@ public class LandlordController {
         return landlord;
     }
 
+    private void index() throws SQLException {
+        List<Landlord> landlords = Landlord.index();
+        landlordview.index(landlords);
+    }
+
     public void searchByDni(){
         String dni = landlordview.findbyDni();
         Landlord landlord = Landlord.findByDni(dni);
         landlordview.details(landlord);
+    }
+
+    public void menu () throws SQLException {
+        LandlordView landlordView = new LandlordView();
+        int option = landlordView.menu();
+        switch (option){
+            case 1:
+                this.index();
+            case 2:
+                landlordView.createLandlord();
+            case 3:
+                landlordView.findbyDni();
+            default:
+                IO.println("¡Opción invalida!");
+
+        }
     }
 }
