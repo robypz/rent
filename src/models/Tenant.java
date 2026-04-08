@@ -21,7 +21,7 @@ public class Tenant {
 
     public static List<Tenant> index(){
         List<Tenant> tenants = new ArrayList<>();
-        String sql = "SELECT * FROM Tenant";
+        String sql = "SELECT * FROM Tenants";
         try(Connection conn = MariaDB.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = stmt.executeQuery()){
@@ -33,6 +33,7 @@ public class Tenant {
                         rs.getString("last_name")
                 );
                 t.setId(rs.getInt("id"));
+                tenants.add(t);
             }
         } catch (SQLException e) {
             IO.println("Error en index de tentant " + e.getMessage());
@@ -140,6 +141,10 @@ public class Tenant {
             IO.println("Error: " + e.getMessage());
         }
         return tenant;
+    }
+
+    public List<Rental> rentals(){
+        return Rental.getByTenantId(this.id);
     }
 
     public String getDni() {

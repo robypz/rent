@@ -131,6 +131,29 @@ public class Rental {
         return r;
     }
 
+    public static List<Rental> getByTenantId(int tenant_id) {
+        List<Rental> rentals = new ArrayList<>();
+        String sql = "SELECT * FROM rentals WHERE tenant_id = ?";
+        try (Connection con = MariaDB.getConnection();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, tenant_id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Rental r = new Rental(
+                            rs.getInt("tenant_id"),
+                            rs.getObject("start_date", LocalDate.class),
+                            rs.getObject("end_date", LocalDate.class),
+                            rs.getInt("property_id")
+                    );
+                    r.setId(rs.getInt("id"));
+                    rentals.add(r);
+                }
+            }
+        } catch (SQLException e) {
+            IO.println("Error en getById de tenant " + e.getMessage());
+        }
+        return rentals;
+    }
 
     public int getId() { return this.id; }
     public void setId(int id) { this.id = id; }

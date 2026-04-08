@@ -7,6 +7,7 @@ import views.TenantView;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 public class TenantController {
     private TenantView tenantView = new TenantView();
@@ -32,7 +33,7 @@ public class TenantController {
         }
     }
 
-    public void index() throws  SQLException{
+    public void index() throws SQLException{
         List<Tenant> tenants = Tenant.index();
         tenantView.index(tenants);
     }
@@ -44,14 +45,32 @@ public class TenantController {
                 this.index();
                 break;
             case 2:
-                tenantView.createTenant();
+                this.store();
                 break;
             case 3:
-                tenantView.findbyDni();
+                this.searchByDni();
                 break;
             default:
                 IO.println("Opción inválida");
                 break;
         }
     }
+
+    public void detailMenu(Map<Integer,Tenant> option){
+        tenantView.detailMenu(option.values().iterator().next());
+        switch(option.keySet().iterator().next()){
+            case 1:
+                Tenant tenant = tenantView.edit(option.get(1));
+                tenant.update();
+                tenantView.details(tenant);
+                break;
+            case 2:
+                Tenant.destroy(option.get(2));
+                break;
+            default:
+                IO.println("Opción inválida");
+                break;
+        }
+    }
+
 }

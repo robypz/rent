@@ -43,7 +43,7 @@ public class RentalController {
                 this.index();
                 break;
             case 2:
-                rentalview.createRental();
+                this.store();
                 break;
             case 3:
                 rentalview.searchById();

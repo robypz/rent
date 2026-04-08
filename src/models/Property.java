@@ -131,9 +131,6 @@ public class Property {
         return properties;
     }
 
-
-
-
     public static boolean exists(int id) {
         String sql = "SELECT COUNT(*) FROM properties WHERE id = ?";
         try (Connection conn = MariaDB.getConnection();
@@ -172,6 +169,30 @@ public class Property {
             System.out.println("Error en findById: " + e.getMessage());
         }
         return property;
+    }
+
+    public static List<Property> getLandlordId(int  landlord_id) {
+        List<Property> properties = new ArrayList<>();
+        String sql = "SELECT * FROM properties WHERE landlord_id = ?";
+        try (Connection con = MariaDB.getConnection();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setInt(1, landlord_id);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Property p = new Property(
+                        rs.getString("address"),
+                        rs.getDouble("price"),
+                        rs.getInt("floors"),
+                        rs.getInt("landlord_id")
+                );
+                p.setId(rs.getInt("id"));
+                properties.add(p);
+            }
+        } catch (SQLException e) {
+            IO.println("Error en index de property " + e.getMessage());
+        }
+        return properties;
     }
 
     public int getId() {

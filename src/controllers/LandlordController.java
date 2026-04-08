@@ -7,6 +7,7 @@ import views.LandlordView;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 public class LandlordController {
     private LandlordView landlordview = new LandlordView();
@@ -20,7 +21,7 @@ public class LandlordController {
         } else{
             try{
                 landlord.store();
-                LandlordView.details(landlord);
+                landlordview.details(landlord);
             } catch (SQLException e){
                 IO.println(e.getMessage());
             }
@@ -74,8 +75,25 @@ public class LandlordController {
                 landlordview.createLandlord();
                 break;
             case 3:
-                landlordview.findbyDni();
+                landlordview.details(Landlord.findByDni(landlordview.findbyDni()));
                 break;
+            default:
+                IO.println("Opción inválida");
+                break;
+        }
+    }
+
+    public void detailMenu(Map<Integer,Landlord> option){
+        landlordview.detailMenu(option.values().iterator().next());
+        switch(option.keySet().iterator().next()){
+            case 1:
+                Landlord landlord = landlordview.edit(option.get(1));
+                landlord.update();
+                landlordview.details(landlord);
+                break;
+            case 2:
+                Landlord.destroy(option.get(2));
+               break;
             default:
                 IO.println("Opción inválida");
                 break;

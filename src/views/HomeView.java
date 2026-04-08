@@ -9,7 +9,7 @@ public class HomeView {
     }
 
     private void init(){
-        IO.println("¡Bienvenido al programa de administración de rentas");
+        IO.println("¡Bienvenido al programa de administración de rentas!");
     }
 
     public int mainMenu(){

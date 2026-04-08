@@ -174,6 +174,10 @@ public class Landlord {
         return landlord;
     }
 
+    public List<Property> propierties(){
+        return Property.getByLandlordId(this);
+    }
+
     public int getId() {
         return id;
     }
