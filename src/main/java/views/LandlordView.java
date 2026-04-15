@@ -3,6 +3,8 @@ package views;
 import models.Landlord;
 import models.Property;
 
+import javax.swing.*;
+import java.awt.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -12,9 +14,39 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-public class LandlordView {
-    //crear las clases vista para todas las clases existentes, landlord, property, rental y tenant
+public class LandlordView extends JPanel {
+
     private Scanner sc = new Scanner(System.in);
+
+    public JPanel getPanel() {
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        //Propietarios
+        panel = new JPanel(new GridBagLayout());
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(10, 10, 10, 10);
+        panel.add(new JLabel("Propietarios"),gbc);
+
+        /*gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.insets = new Insets(10,10,10,10);
+        propietarios.add(new TablaPropietarios().getTable(),gbc);*/
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.insets = new Insets(10,10,10,10);
+        JButton botonCrearPropietario = new JButton("Crear");
+        botonCrearPropietario.addActionListener(l -> {
+            createLandlordFrame();
+        });
+        panel.add(botonCrearPropietario,gbc);
+        return panel;
+    }
+
+    //crear las clases vista para todas las clases existentes, landlord, property, rental y tenant
     public Landlord createLandlord() {
 
         IO.println("CREAR NUEVO PROPIETARIO");
@@ -61,6 +93,49 @@ public class LandlordView {
         landlord.setDni(dni);
         landlord.setBirth_date(birthDate);
         return landlord;
+    }
+
+    public void createLandlordFrame(){
+        JFrame frame = new JFrame("Create landlord");
+        JPanel panel = new JPanel(new GridLayout(5,2,3,3));
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        JLabel name = new JLabel("Nombre");
+        JTextField name_field = new JTextField();
+        panel.add(name);
+        panel.add(name_field);
+
+        JLabel last_name = new JLabel("Apellido");
+        JTextField last_name_field = new JTextField();
+        panel.add(last_name);
+        panel.add(last_name_field);
+
+
+        JLabel dni = new JLabel("Dni");
+        JTextField dni_field = new JTextField();
+        panel.add(dni);
+        panel.add(dni_field);
+
+        JLabel birth_date = new JLabel("Fecha nacimiento");
+        JTextField birth_date_field = new JTextField();
+        panel.add(birth_date);
+        panel.add(birth_date_field);
+
+        JButton crearButton = new JButton("Guardar");
+        panel.add(crearButton);
+
+        JButton cancelButton = new JButton("Cancelar");
+        cancelButton.addActionListener(l->{
+            frame.dispose();
+        });
+        panel.add(cancelButton);
+
+        frame.add(panel);
+        frame.setLayout(new GridBagLayout());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400,600);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
     public void details(Landlord landlord) {
