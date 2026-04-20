@@ -1,24 +1,25 @@
 package views;
 
+import controllers.LandlordController;
 import models.Landlord;
+import models.LandlordTableModel;
 import models.Property;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
 
 public class LandlordView extends JPanel {
 
     private Scanner sc = new Scanner(System.in);
 
-    public JPanel getPanel() {
+    public JPanel getPanel() throws SQLException {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -30,10 +31,17 @@ public class LandlordView extends JPanel {
         gbc.insets = new Insets(10, 10, 10, 10);
         panel.add(new JLabel("Propietarios"),gbc);
 
-        /*gbc.gridx = 0;
+        gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.insets = new Insets(10,10,10,10);
-        propietarios.add(new TablaPropietarios().getTable(),gbc);*/
+        List<Object> datos = new ArrayList<Object>();
+        for(Landlord l: Landlord.index()){
+            datos.add(new Object[]{l.getName(),l.getLast_name(), l.getDni(), l.getBirth_date().toString()});
+        }
+        Object[] columnas = { "ID", "Nombre", "Apellidos", "DNI", "Fecha nacimiento" };
+        JTable table = new JTable((Object[][]) datos.toArray(),columnas);
+
+        panel.add(table,gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
@@ -122,6 +130,14 @@ public class LandlordView extends JPanel {
         panel.add(birth_date_field);
 
         JButton crearButton = new JButton("Guardar");
+        crearButton.addActionListener(l -> {
+            LandlordController.store(new Landlord(
+                    name_field.getText(),
+                    last_name_field.getText(),
+                    dni_field.getText(),
+                    LocalDate.parse(birth_date_field.getText())
+            ));
+        });
         panel.add(crearButton);
 
         JButton cancelButton = new JButton("Cancelar");

@@ -12,6 +12,17 @@ public class Landlord {
     private String dni;
     private LocalDate birth_date;
 
+    public Landlord(){
+
+    }
+
+    public Landlord(String name, String last_name, String dni, LocalDate birth_date){
+        this.name = name;
+        this.last_name = last_name;
+        this.dni = dni;
+        this.birth_date = birth_date;
+    }
+
     //meotodos para operar tabla en db
     public static List<Landlord> index() throws SQLException{
         List<Landlord> landlords = new ArrayList<>();
@@ -57,10 +68,6 @@ public class Landlord {
             try (ResultSet keys = stmt.getGeneratedKeys()) {
                 if (keys.next()) {
                     this.setId(keys.getInt("insert_id"));
-                    this.setName(keys.getString("name"));
-                    this.setLast_name(keys.getString("last_name"));
-                    this.setDni(keys.getString("dni"));
-                    this.setBirth_date(keys.getObject("birth_date",LocalDate.class));
                 }
             }
 

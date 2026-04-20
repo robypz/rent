@@ -4,11 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a58bdf55-42ad-4e6c-aa68-5218fb9cb3ae" name="Changes" comment="menús creados" />
+    <list default="true" id="a58bdf55-42ad-4e6c-aa68-5218fb9cb3ae" name="Changes" comment="menús creados 2">
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/LandlordTableModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/LandlordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/LandlordController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Landlord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Landlord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/views/HomeView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/HomeView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/views/LandlordView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/LandlordView.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -76,7 +91,7 @@
       <option name="presentableId" value="Default" />
       <updated>1776273133222</updated>
       <workItem from="1776273134315" duration="4024000" />
-      <workItem from="1776697736702" duration="3416000" />
+      <workItem from="1776697736702" duration="7239000" />
     </task>
     <task id="LOCAL-00001" summary="configuración de proyecto con Maven">
       <option name="closed" value="true" />
@@ -102,7 +117,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776701007348</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="menús creados 2">
+      <option name="closed" value="true" />
+      <created>1776701377783</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1776701377783</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -112,6 +135,7 @@
     <MESSAGE value="configuración de proyecto con Maven" />
     <MESSAGE value="falta crear los menús del resto de la clases, landlord ya está hecho" />
     <MESSAGE value="menús creados" />
-    <option name="LAST_COMMIT_MESSAGE" value="menús creados" />
+    <MESSAGE value="menús creados 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="menús creados 2" />
   </component>
 </project>

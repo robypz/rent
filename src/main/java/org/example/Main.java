@@ -11,7 +11,4 @@ public class Main {
     static void main() throws SQLException {
         HomeController homeController = new HomeController();
     }
-
-
-
 }
