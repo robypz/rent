@@ -3,6 +3,8 @@ package views;
 import models.Landlord;
 import models.Rental;
 
+import javax.swing.*;
+import java.awt.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -10,8 +12,32 @@ import java.time.format.ResolverStyle;
 import java.util.List;
 import java.util.Scanner;
 
-public class RentalView {
+public class RentalView extends JPanel {
     private Scanner sc = new Scanner(System.in);
+
+    public JPanel getPanel() {
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        //Contratos
+        panel = new JPanel(new GridBagLayout());
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(10, 10, 10, 10);
+        panel.add(new JLabel("Contratos"),gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.insets = new Insets(10,10,10,10);
+        JButton botonCrearPropiedad = new JButton("Crear");
+        botonCrearPropiedad.addActionListener(l -> {
+            createRentalFrame();
+        });
+        panel.add(botonCrearPropiedad,gbc);
+        return panel;
+    }
+
     public Rental createRental(){
         Scanner sc = new Scanner(System.in);
         IO.println("CREAR NUEVO ALQUILER");
@@ -78,6 +104,53 @@ public class RentalView {
             }
         }
         return new Rental(tenant_id, start_date, end_date,  property_id);
+    }
+
+    public void createRentalFrame(){
+        JFrame frame = new JFrame("Create rental");
+        JPanel panel = new JPanel(new GridLayout(6,2,3,3));
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        JLabel id = new JLabel("ID");
+        JTextField id_field = new JTextField();
+        panel.add(id);
+        panel.add(id_field);
+
+        JLabel tenant_id = new JLabel("ID Inquilino");
+        JTextField tenant_id_field = new JTextField();
+        panel.add(tenant_id);
+        panel.add(tenant_id_field);
+
+        JLabel start_date = new JLabel("Fecha de inicio");
+        JTextField start_date_field = new JTextField();
+        panel.add(start_date);
+        panel.add(start_date_field);
+
+        JLabel end_date = new JLabel("Fecha de final");
+        JTextField end_date_field = new JTextField();
+        panel.add(end_date);
+        panel.add(end_date_field);
+
+        JLabel property_id = new JLabel("ID Propiedad");
+        JTextField property_id_field = new JTextField();
+        panel.add(property_id);
+        panel.add(property_id_field);
+
+        JButton crearButton = new JButton("Guardar");
+        panel.add(crearButton);
+
+        JButton cancelButton = new JButton("Cancelar");
+        cancelButton.addActionListener(l->{
+            frame.dispose();
+        });
+        panel.add(cancelButton);
+
+        frame.add(panel);
+        frame.setLayout(new GridBagLayout());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400,600);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
     public int searchById() {

@@ -22,17 +22,17 @@ public class HomeView extends JFrame {
         //Inquilinos
         inquilinos = new JPanel();
         inquilinos.add(new JLabel("Inquilino"));
-        tabsPrincipal.add("Inquilinos", inquilinos);
+        tabsPrincipal.add("Inquilinos", new TenantView().getPanel());
 
         //Contratos
         contratos = new JPanel();
         contratos.add(new JLabel("Contrato"));
-        tabsPrincipal.add("Contratos", contratos);
+        tabsPrincipal.add("Contratos", new RentalView().getPanel());
 
         //Propiedades
         propiedades = new JPanel();
         propiedades.add(new JLabel("Propiedades"));
-        tabsPrincipal.add("Propiedades", propiedades);
+        tabsPrincipal.add("Propiedades", new PropertyView().getPanel());
 
         add(tabsPrincipal);
         setSize(500, 500);

@@ -4,6 +4,8 @@ import models.Landlord;
 import models.Rental;
 import models.Tenant;
 
+import javax.swing.*;
+import java.awt.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -15,6 +17,29 @@ import java.util.Scanner;
 
 public class TenantView {
     private Scanner sc = new Scanner(System.in);
+
+    public JPanel getPanel() {
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        //Inquilinos
+        panel = new JPanel(new GridBagLayout());
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(10, 10, 10, 10);
+        panel.add(new JLabel("Inquilinos"),gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.insets = new Insets(10,10,10,10);
+        JButton botonCrearPropiedad = new JButton("Crear");
+        botonCrearPropiedad.addActionListener(l -> {
+            createTenantFrame();
+        });
+        panel.add(botonCrearPropiedad,gbc);
+        return panel;
+    }
 
     public Tenant createTenant(){
         Scanner sc = new Scanner(System.in);
@@ -57,6 +82,53 @@ public class TenantView {
         } while(last_name.isEmpty() || last_name.length()>10);
 
         return new Tenant(dni, birthDate, name, last_name);
+    }
+
+    public void createTenantFrame(){
+        JFrame frame = new JFrame("Create tenant");
+        JPanel panel = new JPanel(new GridLayout(6,2,3,3));
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        JLabel id = new JLabel("ID");
+        JTextField id_field = new JTextField();
+        panel.add(id);
+        panel.add(id_field);
+
+        JLabel dni = new JLabel("Dni");
+        JTextField dni_field = new JTextField();
+        panel.add(dni);
+        panel.add(dni_field);
+
+        JLabel birth_date = new JLabel("Fecha de nacimiento");
+        JTextField birth_date_field = new JTextField();
+        panel.add(birth_date);
+        panel.add(birth_date_field);
+
+        JLabel name = new JLabel("Nombre");
+        JTextField name_field = new JTextField();
+        panel.add(name);
+        panel.add(name_field);
+
+        JLabel last_name = new JLabel("Apellidos");
+        JTextField last_name_field = new JTextField();
+        panel.add(last_name);
+        panel.add(last_name_field);
+
+        JButton crearButton = new JButton("Guardar");
+        panel.add(crearButton);
+
+        JButton cancelButton = new JButton("Cancelar");
+        cancelButton.addActionListener(l->{
+            frame.dispose();
+        });
+        panel.add(cancelButton);
+
+        frame.add(panel);
+        frame.setLayout(new GridBagLayout());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400,600);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
     public static void details(Tenant tenant) {

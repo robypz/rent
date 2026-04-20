@@ -3,11 +3,36 @@ package views;
 import models.Landlord;
 import models.Property;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.List;
 import java.util.Scanner;
 
-public class PropertyView {
+public class PropertyView extends JPanel {
     private Scanner sc = new Scanner(System.in);
+
+    public JPanel getPanel() {
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        //Propiedades
+        panel = new JPanel(new GridBagLayout());
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(10, 10, 10, 10);
+        panel.add(new JLabel("Propiedades"),gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.insets = new Insets(10,10,10,10);
+        JButton botonCrearPropiedad = new JButton("Crear");
+        botonCrearPropiedad.addActionListener(l -> {
+            createPropertyFrame();
+        });
+        panel.add(botonCrearPropiedad,gbc);
+        return panel;
+    }
 
     public Property createProperty() {
         Scanner sc = new Scanner(System.in);
@@ -59,6 +84,49 @@ public class PropertyView {
             }
         }
         return new Property(address, price, floors, landlord_id);
+    }
+
+    public void createPropertyFrame(){
+        JFrame frame = new JFrame("Create property");
+        JPanel panel = new JPanel(new GridLayout(5,2,3,3));
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        JLabel id = new JLabel("ID");
+        JTextField id_field = new JTextField();
+        panel.add(id);
+        panel.add(id_field);
+
+        JLabel address = new JLabel("Dirección");
+        JTextField address_field = new JTextField();
+        panel.add(address);
+        panel.add(address_field);
+
+
+        JLabel price = new JLabel("Precio");
+        JTextField price_field = new JTextField();
+        panel.add(price);
+        panel.add(price_field);
+
+        JLabel floors = new JLabel("Pisos");
+        JTextField floors_field = new JTextField();
+        panel.add(floors);
+        panel.add(floors_field);
+
+        JButton crearButton = new JButton("Guardar");
+        panel.add(crearButton);
+
+        JButton cancelButton = new JButton("Cancelar");
+        cancelButton.addActionListener(l->{
+            frame.dispose();
+        });
+        panel.add(cancelButton);
+
+        frame.add(panel);
+        frame.setLayout(new GridBagLayout());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400,600);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
     public int findbyId() {
