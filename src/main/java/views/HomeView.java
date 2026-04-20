@@ -2,6 +2,7 @@ package views;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class HomeView extends JFrame {
@@ -11,7 +12,7 @@ public class HomeView extends JFrame {
     private JPanel propiedades;
     private JTabbedPane tabsPrincipal;
 
-    public HomeView() {
+    public HomeView() throws SQLException {
 
         setTitle("Administración de alquileres");
 

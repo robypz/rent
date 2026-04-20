@@ -4,6 +4,7 @@ import models.Landlord;
 import models.MariaDB;
 import views.LandlordView;
 
+import javax.swing.*;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -12,19 +13,18 @@ import java.util.Map;
 public class LandlordController {
     private LandlordView landlordview = new LandlordView();
     private Landlord landlordModel = new Landlord();
-    public void store() {
-        Landlord landlord = landlordview.createLandlord();
 
-        //comprobamos que el dni no existe en la base de datos
-        if(Landlord.dniExist(landlord.getDni())){
-            IO.println("Este DNI ya está registrado");
-        } else{
-            try{
-                landlord.store();
-                landlordview.details(landlord);
-            } catch (SQLException e){
-                IO.println(e.getMessage());
-            }
+    public static void store(Landlord landlord) {
+        try {
+            landlord.store();
+        }catch (SQLException e){
+            JDialog dialog = new JDialog();
+            dialog.setTitle("Error");
+            dialog.add(new JLabel(e.getMessage()));
+            dialog.setResizable(false);
+            dialog.setLocationRelativeTo(null);
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
         }
     }
 

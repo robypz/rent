@@ -1,24 +1,26 @@
 package views;
 
+import controllers.LandlordController;
 import models.Landlord;
+import models.LandlordTableModel;
 import models.Property;
 
 import javax.swing.*;
+import javax.swing.table.TableModel;
 import java.awt.*;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
 
 public class LandlordView extends JPanel {
 
     private Scanner sc = new Scanner(System.in);
 
-    public JPanel getPanel() {
+    public JPanel getPanel() throws SQLException {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -30,14 +32,35 @@ public class LandlordView extends JPanel {
         gbc.insets = new Insets(10, 10, 10, 10);
         panel.add(new JLabel("Propietarios"),gbc);
 
-        /*gbc.gridx = 0;
+        gbc.gridx = 0;
         gbc.gridy = 1;
-        gbc.insets = new Insets(10,10,10,10);
-        propietarios.add(new TablaPropietarios().getTable(),gbc);*/
+        gbc.insets = new Insets(10, 10, 10, 10);
+
+        // MUY IMPORTANTE: permitir que el componente crezca
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+
+        // Obtener lista directamente
+        List<Landlord> lista = Landlord.index();
+
+        // Crear modelo
+        LandlordTableModel model = new LandlordTableModel(lista);
+
+        // Crear tabla
+        JTable table = new JTable(model);
+
+        // SIEMPRE usar JScrollPane
+        JScrollPane scroll = new JScrollPane(table);
+
+        // Agregar al panel
+        panel.add(scroll, gbc);
+
 
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.insets = new Insets(10,10,10,10);
+        gbc.fill = GridBagConstraints.NONE;
         JButton botonCrearPropietario = new JButton("Crear");
         botonCrearPropietario.addActionListener(l -> {
             createLandlordFrame();
@@ -122,6 +145,14 @@ public class LandlordView extends JPanel {
         panel.add(birth_date_field);
 
         JButton crearButton = new JButton("Guardar");
+        crearButton.addActionListener(l -> {
+            LandlordController.store(new Landlord(
+                   name_field.getText(),
+                    last_name_field.getText(),
+                    dni_field.getText(),
+                    LocalDate.parse(birth_date_field.getText())
+            ));
+        });
         panel.add(crearButton);
 
         JButton cancelButton = new JButton("Cancelar");
