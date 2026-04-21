@@ -41,11 +41,25 @@ public class LandlordView extends JPanel {
         gbc.weightx = 1;
         gbc.weighty = 1;
 
-        // Obtener lista directamente
-        List<Landlord> lista = Landlord.index();
+        // Inicializar vacío y cargar asíncronamente
+        LandlordTableModel model = new LandlordTableModel(new java.util.ArrayList<>());
+        
+        javax.swing.SwingWorker<List<Landlord>, Void> worker = new javax.swing.SwingWorker<>() {
+            @Override
+            protected List<Landlord> doInBackground() throws Exception {
+                return new repository.LandlordDAO().findAll();
+            }
 
-        // Crear modelo
-        LandlordTableModel model = new LandlordTableModel(lista);
+            @Override
+            protected void done() {
+                try {
+                    model.setLandlords(get());
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Error cargando propietarios: " + e.getMessage());
+                }
+            }
+        };
+        worker.execute();
 
         // Crear tabla
         JTable table = new JTable(model);
@@ -222,7 +236,7 @@ public class LandlordView extends JPanel {
                 "\nFecha nacimiento: " + landlord.getBirth_date()
         );
         IO.println("\nPropiedades:\n");
-        for(Property p: landlord.propierties()){
+        for(Property p: Property.getByLandlordId(landlord)){
             IO.println(p);
         }
         this.detailMenu(landlord);

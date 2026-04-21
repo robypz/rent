@@ -11,10 +11,15 @@ public class LandlordTableModel extends AbstractTableModel {
             "ID", "Nombre", "Apellido", "DNI", "Fecha de Nacimiento"
     };
 
-    private final List<Landlord> landlords;
+    private List<Landlord> landlords;
 
     public LandlordTableModel(List<Landlord> landlords) {
         this.landlords = landlords;
+    }
+
+    public void setLandlords(List<Landlord> landlords) {
+        this.landlords = landlords;
+        fireTableDataChanged();
     }
 
     @Override

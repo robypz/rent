@@ -13,9 +13,11 @@ public class LandlordController {
     private LandlordTableVeiw landlordTableVeiw;
     private LandlordMainView landlordMainView;
     public LandlordController (){
-        landlordTableModel = new LandlordTableModel(Landlord.index());
+        landlordTableModel = new LandlordTableModel(new java.util.ArrayList<>());
         landlordTableVeiw = new LandlordTableVeiw(landlordTableModel);
         landlordMainView = new LandlordMainView(landlordTableVeiw);
+
+        loadDataAsync();
 
         landlordTableVeiw.getTable().addMouseListener(new MouseAdapter() {
             @Override
@@ -27,6 +29,26 @@ public class LandlordController {
             }
         });
     }
+    private void loadDataAsync() {
+        javax.swing.SwingWorker<java.util.List<Landlord>, Void> worker = new javax.swing.SwingWorker<>() {
+            @Override
+            protected java.util.List<Landlord> doInBackground() throws Exception {
+                return new repository.LandlordDAO().findAll();
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    java.util.List<Landlord> landlords = get();
+                    landlordTableModel.setLandlords(landlords);
+                } catch (Exception e) {
+                    javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar propietarios: " + e.getMessage());
+                }
+            }
+        };
+        worker.execute();
+    }
+
     public LandlordMainView getLandlordMainView(){
         return landlordMainView;
     }
