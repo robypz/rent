@@ -24,7 +24,7 @@ public class Landlord {
     }
 
     //meotodos para operar tabla en db
-    public static List<Landlord> index() throws SQLException{
+    public static List<Landlord> index() {
         List<Landlord> landlords = new ArrayList<>();
         String sql = "SELECT * FROM landlords";
         try (

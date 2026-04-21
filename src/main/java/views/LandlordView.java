@@ -1,13 +1,13 @@
 package views;
 
-import controllers.LandlordController;
 import models.Landlord;
-import models.LandlordTableModel;
+import views.landlord.LandlordTableModel;
 import models.Property;
 
 import javax.swing.*;
-import javax.swing.table.TableModel;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -49,6 +49,14 @@ public class LandlordView extends JPanel {
 
         // Crear tabla
         JTable table = new JTable(model);
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    showLandlordFrame();
+                }
+            }
+        });
 
         // SIEMPRE usar JScrollPane
         JScrollPane scroll = new JScrollPane(table);
@@ -67,6 +75,40 @@ public class LandlordView extends JPanel {
         });
         panel.add(botonCrearPropietario,gbc);
         return panel;
+    }
+
+    public void showLandlordFrame() {
+        JFrame frame = new JFrame("Detalles De Propietario");
+        JPanel panel = new JPanel(new GridLayout(5,2,3,3));
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        JLabel name = new JLabel("Nombre");
+        JTextField name_field = new JTextField("asa");
+        panel.add(name);
+        panel.add(name_field);
+
+        JLabel last_name = new JLabel("Apellido");
+        JTextField last_name_field = new JTextField();
+        panel.add(last_name);
+        panel.add(last_name_field);
+
+
+        JLabel dni = new JLabel("Dni");
+        JTextField dni_field = new JTextField();
+        panel.add(dni);
+        panel.add(dni_field);
+
+        JLabel birth_date = new JLabel("Fecha nacimiento");
+        JTextField birth_date_field = new JTextField();
+        panel.add(birth_date);
+        panel.add(birth_date_field);
+
+        frame.add(panel);
+        frame.setLayout(new GridBagLayout());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400,600);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
     //crear las clases vista para todas las clases existentes, landlord, property, rental y tenant
@@ -124,7 +166,8 @@ public class LandlordView extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
 
         JLabel name = new JLabel("Nombre");
-        JTextField name_field = new JTextField();
+        JTextField name_field = new JTextField("aaaa");
+        name_field.setEnabled(false);
         panel.add(name);
         panel.add(name_field);
 
@@ -146,12 +189,12 @@ public class LandlordView extends JPanel {
 
         JButton crearButton = new JButton("Guardar");
         crearButton.addActionListener(l -> {
-            LandlordController.store(new Landlord(
+            /*LandlordController.store(new Landlord(
                    name_field.getText(),
                     last_name_field.getText(),
                     dni_field.getText(),
                     LocalDate.parse(birth_date_field.getText())
-            ));
+            ));*/
         });
         panel.add(crearButton);
 

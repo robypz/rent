@@ -1,4 +1,6 @@
-package models;
+package views.landlord;
+
+import models.Landlord;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;

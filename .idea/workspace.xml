@@ -5,11 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a58bdf55-42ad-4e6c-aa68-5218fb9cb3ae" name="Changes" comment="Configuración de proyecto con maven">
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/LandlordTableModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/views/landlord/LandlordFormView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/views/landlord/LandlordMainView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/views/landlord/LandlordTableVeiw.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/HomeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controllers/LandlordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/LandlordController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/models/Landlord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Landlord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/MariaDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/MariaDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/LandlordTableModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/landlord/LandlordTableModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/views/HomeView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/HomeView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/views/LandlordView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/LandlordView.java" afterDir="false" />
@@ -38,7 +41,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/robypz/rent.git&quot;,
-    &quot;accountId&quot;: &quot;c6716752-5543-43a4-ae59-2b82cda2723b&quot;
+    &quot;accountId&quot;: &quot;a32a27a1-ceee-465f-93cd-a096931a139f&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -49,33 +52,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "sadiezh",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/Users/sarad/IdeaProjects/rent/src/main/java/org/example/Main.java",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "application.passwordSafe",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;tablas&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/sarad/IdeaProjects/rent/src/main/java/org/example/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;application.passwordSafe&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\sarad\IdeaProjects\rent\src\main\java" />
@@ -98,6 +106,8 @@
       <updated>1776273133222</updated>
       <workItem from="1776273134315" duration="4024000" />
       <workItem from="1776697736702" duration="3416000" />
+      <workItem from="1776757440386" duration="391000" />
+      <workItem from="1776760504953" duration="1000" />
     </task>
     <task id="LOCAL-00001" summary="configuración de proyecto con Maven">
       <option name="closed" value="true" />
@@ -123,7 +133,23 @@
       <option name="project" value="LOCAL" />
       <updated>1776701007348</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Configuración de proyecto con maven">
+      <option name="closed" value="true" />
+      <created>1776713528327</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1776713528327</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Configuración de proyecto con maven">
+      <option name="closed" value="true" />
+      <created>1776713536804</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1776713536804</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,6 +159,7 @@
     <MESSAGE value="configuración de proyecto con Maven" />
     <MESSAGE value="falta crear los menús del resto de la clases, landlord ya está hecho" />
     <MESSAGE value="menús creados" />
-    <option name="LAST_COMMIT_MESSAGE" value="menús creados" />
+    <MESSAGE value="Configuración de proyecto con maven" />
+    <option name="LAST_COMMIT_MESSAGE" value="Configuración de proyecto con maven" />
   </component>
 </project>
